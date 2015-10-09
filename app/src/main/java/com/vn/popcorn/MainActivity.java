@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -50,8 +51,35 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new GridAdapter();
+        mAdapter = new GridAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+
+//        mRecyclerView.addOnItemTouchListener(
+//                new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        // do whatever
+//                    }
+//                })
+//        );
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                return false;
+            }
+
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
     }
 

@@ -1,5 +1,7 @@
 package com.vn.popcorn;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +15,19 @@ import java.util.List;
  * Created by vn on 7/10/15.
  */
 
-public class GridAdapter  extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
+public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
     List<MovieItem> mItems;
+    private Context context;
 
-    public GridAdapter() {
+//    public GridAdapter(Context context){
+//        this.context = context;
+//    }
+
+    public GridAdapter(Context context) {
         super();
+        this.context = context;
+
         mItems = new ArrayList<MovieItem>();
 
         MovieItem movie = new MovieItem();
@@ -66,6 +75,16 @@ public class GridAdapter  extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         MovieItem film = mItems.get(i);
         viewHolder.imgThumbnail.setImageResource(film.getThumbnail());
+        viewHolder.imgThumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context,DetailActivity.class);
+                context.startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
