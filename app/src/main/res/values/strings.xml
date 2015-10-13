@@ -63,4 +63,16 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="pref_title_sort_order">Sort By</string>
+    <string-array name="pref_sort_order_titles">
+        <item>Trending</item>
+        <item>Recent</item>
+        <item>Rating</item>
+    </string-array>
+    <string-array name="pref_sort_order_values">
+        <item>popularity.desc</item>
+        <item>release_date.desc</item>
+        <item>vote_avg.desc</item>
+    </string-array>
+
 </resources>
