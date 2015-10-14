@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+def versionBuild = 0 //bump for dogfood builds, public betas, etc.
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
@@ -8,8 +13,9 @@ android {
         applicationId "com.vn.popcorn"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
     }
     buildTypes {
         release {
