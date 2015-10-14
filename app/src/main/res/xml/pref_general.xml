@@ -11,5 +11,17 @@
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"/>
 
+    <!--<Preference-->
+        <!--android:selectable="false"-->
+        <!--android:enabled="true"-->
+        <!--android:key="example_key"-->
+        <!--android:title="Build"-->
+        <!--android:summary="0.0.1" />-->
+
+    <Preference
+        android:selectable="false"
+        android:key="pref_version"
+        android:layout="@layout/preference" />
+
 
 </PreferenceScreen>

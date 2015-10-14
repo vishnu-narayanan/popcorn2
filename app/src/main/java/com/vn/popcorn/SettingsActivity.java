@@ -1,34 +1,26 @@
 package com.vn.popcorn;
 
 
-import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.app.ActionBar;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.content.pm.PackageInfo;
+import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-
-import java.util.List;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -47,6 +39,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         setupActionBar();
         addPreferencesFromResource(R.xml.pref_general);
+        setContentView(R.layout.preference);
         bindPreferenceSummaryToValue(findPreference("sort_order"));
     }
 
@@ -59,6 +52,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
         root.addView(bar, 0); // insert at top
+
+//        LinearLayout preference = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+//        TextView build_var = (TextView) LayoutInflater.from(this).inflate(R.layout.preference,root, false);
+//        preference.addView(build_var,2);
+//        LayoutInflater li = (LayoutInflater)getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+//        return li.inflate( R.layout.seekbar_preference, parent, false);
+//
+
+
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String version = pInfo.versionName;
+        Integer build = pInfo.versionCode;
+        version = 'v'+version + " (" + build.toString() +')';
+        Log.v("build", version);
+        TextView t = (TextView) findViewById(R.id.version_variable);
+        t.setText(version);
 
 
         // Set the padding to match the Status Bar height
