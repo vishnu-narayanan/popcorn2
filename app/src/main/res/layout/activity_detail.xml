@@ -4,10 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.vn.popcorn.DetailActivity">
 
 
     <include layout="@layout/status_bar" />
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/placeholder_movie_poster"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@drawable/interstellar" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_toRightOf="@id/imageView"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Interstellar"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/movie_release_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_movie_release_date"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/blue_grey_500" />
+
+
+            <TextView
+                android:id="@+id/movie_average_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_movie_rating"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/blue_grey_500" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@android:color/darker_gray" />
+
+
+    <TextView
+        android:id="@+id/movie_plot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/placeholder_movie_plot"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/blue_grey_500" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@android:color/darker_gray" />
+
+
 </LinearLayout>
+
+

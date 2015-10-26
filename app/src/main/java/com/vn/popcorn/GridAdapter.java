@@ -87,7 +87,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
        // Context context = viewHolder.imgThumbnail.getContext();
        Picasso.with(context)
                .load(film.getmImgUrl())
-               .placeholder(R.drawable.oceanbaby)
+               .placeholder(R.drawable.placeholder)
                .fit()
                .into(viewHolder.imgThumbnail);
 
