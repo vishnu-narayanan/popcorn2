@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
+    private  ArrayList result = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         movieTask.execute(preference);
     }
 
-    public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
+    public class FetchMovieTask extends AsyncTask<String, Void, Collection<MovieItem>> {
 
         private final String LOG_TAG = FetchMovieTask.class.getSimpleName();
         private ProgressDialog pDialog;
@@ -129,50 +131,26 @@ public class MainActivity extends AppCompatActivity {
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
          */
-        private String[] getMovieDataFromJson(String movieJsonStr, int numMovies)
+        private Collection<MovieItem> getMovieDataFromJson(String movieJsonStr, int numMovies)
                 throws JSONException {
 
             // These are the names of the JSON objects that need to be extracted.
             final String TMDB_RESULT = "results";
             final String TMDB_POSTER = "poster_path";
-//            final String TMDB_TEMPERATURE = "temp";
-//            final String TMDB_MAX = "max";
-//            final String TMDB_MIN = "min";
-//            final String TMDB_DESCRIPTION = "main";
-//
-//            //code to parse preference data from json for MapView
-//            final String TMDB_CITY = "city";
-//            final String TMDB_COORDINATES = "coord";
-//            final String TMDB_LONG = "lon";
-//            final String TMDB_LAT = "lat";
+            final String TMDB_TITLE = "original_title";
+            final String TMDB_OVERVIEW = "overview";
+            final String TMDB_VOTES = "vote_average";
+            final String TMDB_RELEASEDATE = "release_date";
 
 
             JSONObject movieJson = new JSONObject(movieJsonStr);
             Log.v(LOG_TAG, "movieJson " + movieJson);
             JSONArray movieArray = movieJson.getJSONArray(TMDB_RESULT);
 
-//            String poster = movieArray.getString(TMDB_POSTER);
-
-            //code to parse preference data from JSON for MapView
-
-//            JSONObject cityObject = movieJson.getJSONObject(TMDB_CITY);
-//            JSONObject coordinateObject = cityObject.getJSONObject(TMDB_COORDINATES);
-//
-//            double lon = coordinateObject.getDouble(TMDB_LONG);
-//            double lat = coordinateObject.getDouble(TMDB_LAT);
-
-//            Log.v(LOG_TAG,"CityObject" + cityObject);
-//            Log.v(LOG_TAG, "Longitude" + lon);
-//            Log.v(LOG_TAG, "Latitude" + lat);
-
-//            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-//            SharedPreferences.Editor editor = sharedPref.edit();
-//            editor.putLong("Latitude", Double.doubleToLongBits(lat));
-//            editor.putLong("Longitude", Double.doubleToLongBits(lon));
-//            editor.commit();
-
+          //  ArrayList result = new ArrayList<>();
 
             String[] resultStrs = new String[numMovies];
+
 
 
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -183,21 +161,24 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < movieArray.length(); i++) {
                 String poster;
                 // Get the JSON object representing the day
-                JSONObject movie = movieArray.getJSONObject(i);
-                poster = movie.getString(TMDB_POSTER);
-                resultStrs[i] = "http://image.tmdb.org/t/p/w185/"+poster;
+//                JSONObject movie = movieArray.getJSONObject(i);
+//                poster = movie.getString(TMDB_POSTER);
+//                resultStrs[i] = "http://image.tmdb.org/t/p/w185/"+poster;
+
+                result.add(MovieItem.fromJson(movieArray.getJSONObject(i)));
+                Log.v(LOG_TAG, "Movie Poster Paths: " + result);
             }
 
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Movie Poster Paths: " + s);
-            }
-            return resultStrs;
+//            for (String s : resultStrs) {
+//                Log.v(LOG_TAG, "Movie Poster Paths: " + s);
+//            }
+            return result;
 
         }
 
 
         @Override
-        protected String[] doInBackground(String... params) {
+        protected Collection<MovieItem> doInBackground(String... params) {
 
 
             if (params.length == 0) {
@@ -300,19 +281,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String[] result) {
+        protected void onPostExecute(Collection<MovieItem> result) {
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
             if (result != null) {
                 // mForecastAdapter.clear();
-                for (String movieStr : result) {
+                for (MovieItem movieStr : result) {
                     // GridAdapter.add(movieStr);
-                    if(movieStr!=null) {
-                        MovieItem movie = new MovieItem();
-                        movie.setmImgUrl(movieStr);
-                        mItems.add(movie);
-                    }
+//                    if(movieStr!=null) {
+//                        MovieItem movie = new MovieItem();
+//                        movie.setmImgUrl(movieStr);
+//                        mItems.add(movie);
+//                    }
 
                 }
                 //new data is back from server woo hoo :P
@@ -323,10 +304,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setRAdapter() {
 
-        mAdapter = new GridAdapter(this, mItems);
+        mAdapter = new GridAdapter(this, result);
         mRecyclerView.setAdapter(mAdapter);
-
-
 
     }
 

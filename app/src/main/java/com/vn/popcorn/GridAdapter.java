@@ -2,7 +2,9 @@ package com.vn.popcorn;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
+    private static final String LOG_TAG = GridAdapter.class.getSimpleName();
     public List<MovieItem> mItems;
     private Context context;
    // public  String imageUrl[];
@@ -30,6 +33,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         super();
         this.context = context;
         this.mItems = mItems;
+        Log.v(LOG_TAG, "GridAdapter: " + mItems);
 //
 //        mItems = new ArrayList<MovieItem>();
 //        updatemovies();
@@ -81,15 +85,22 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        MovieItem film = mItems.get(i);
+        final MovieItem film = mItems.get(i);
 
        // Uri urí = Uri.parse(film.imageUrl);
        // Context context = viewHolder.imgThumbnail.getContext();
-       Picasso.with(context)
-               .load(film.getmImgUrl())
-               .placeholder(R.drawable.placeholder)
-               .fit()
-               .into(viewHolder.imgThumbnail);
+//       Picasso.with(context)
+//               .load(film.getmImgUrl())
+//               .placeholder(R.drawable.placeholder)
+//               .fit()
+//               .into(viewHolder.imgThumbnail);
+
+        Uri posterUri = film.buildPosterUri(context.getString(R.string.api_poster_default_size));
+        Picasso.with(context)
+                .load(posterUri)
+                .fit()
+                .placeholder(R.drawable.placeholder)
+                .into(viewHolder.imgThumbnail);
 
 
        // viewHolder.imgThumbnail.setImageResource(film.getThumbnail());
@@ -98,6 +109,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(context,DetailActivity.class);
+                  intent.putExtra(MovieItem.EXTRA_MOVIE, film.toBundle());
                 context.startActivity(intent);
 
             }
