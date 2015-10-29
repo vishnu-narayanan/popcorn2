@@ -1,4 +1,4 @@
-package com.vn.popcorn;
+package com.vn.popcorn.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.squareup.picasso.Picasso;
+import com.vn.popcorn.beans.MovieItem;
+import com.vn.popcorn.R;
 
 public class DetailActivity extends AppCompatActivity {
 

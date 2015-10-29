@@ -1,8 +1,7 @@
-package com.vn.popcorn;
+package com.vn.popcorn.activities;
 
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +20,7 @@ import android.content.pm.PackageInfo;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.vn.popcorn.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

@@ -1,4 +1,4 @@
-package com.vn.popcorn;
+package com.vn.popcorn.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.vn.popcorn.beans.MovieItem;
+import com.vn.popcorn.R;
+import com.vn.popcorn.activities.DetailActivity;
 
 import java.util.List;
 

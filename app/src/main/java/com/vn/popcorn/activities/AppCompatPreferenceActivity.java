@@ -1,4 +1,4 @@
-package com.vn.popcorn;
+package com.vn.popcorn.activities;
 
 /**
  * Created by vn on 9/10/15.

@@ -1,4 +1,4 @@
-package com.vn.popcorn;
+package com.vn.popcorn.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.vn.popcorn.adapters.GridAdapter;
+import com.vn.popcorn.beans.MovieItem;
+import com.vn.popcorn.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -108,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         private final String LOG_TAG = FetchMovieTask.class.getSimpleName();
         private ProgressDialog pDialog;
+
 
 
 

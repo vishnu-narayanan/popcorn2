@@ -1,3 +1,5 @@
+package com.vn.popcorn.constants;
+
 /**
  * Created by vn on 28/10/15.
  */

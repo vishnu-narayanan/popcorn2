@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.vn.popcorn.DetailActivity">
+    tools:context="com.vn.popcorn.activities.DetailActivity">
 
 
     <include layout="@layout/status_bar" />
@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="280dp"
             android:layout_weight="1.0"
             android:contentDescription="@string/placeholder_movie_poster"
             android:padding="@dimen/activity_horizontal_margin"
