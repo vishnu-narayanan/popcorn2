@@ -1,11 +1,14 @@
 package com.vn.popcorn.activities;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
         // Retrieve the AppCompact Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set the padding to match the Status Bar height
         toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -65,5 +69,8 @@ public class DetailActivity extends AppCompatActivity {
         }
         return result;
     }
+
+
+
 
 }
