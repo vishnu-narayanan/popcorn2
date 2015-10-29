@@ -56,6 +56,7 @@ public class DetailActivity extends AppCompatActivity {
             Picasso.with(this)
                     .load(posterUri)
                     .fit()
+                    .placeholder(R.drawable.placeholder)
                     .into((ImageView)findViewById(R.id.imageView));
         }
 
