@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private List<MovieItem> mItems;
     private RecyclerView mRecyclerView;
@@ -82,22 +82,20 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         updatemovies();
-//
-//        mAdapter = new GridAdapter(this, mItems);
-//        mRecyclerView.setAdapter(mAdapter);
-//
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
 
-//        );
 
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        updatemovies();
-//
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        }
+
+
 
     public void updatemovies() {
 
@@ -106,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
         String preference = prefs.getString(this.getString(R.string.pref_sort_order),
                 this.getString(R.string.pref_sort_default));
         movieTask.execute(preference);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        result.clear();
+        updatemovies();
     }
 
     public class FetchMovieTask extends AsyncTask<String, Void, Collection<MovieItem>> {
@@ -310,8 +314,8 @@ public class MainActivity extends AppCompatActivity {
     private void setRAdapter() {
 
         mAdapter = new GridAdapter(this, result);
+        mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
 
