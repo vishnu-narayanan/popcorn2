@@ -1,21 +1,18 @@
 package com.vn.popcorn.activities;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.squareup.picasso.Picasso;
-import com.vn.popcorn.beans.MovieItem;
 import com.vn.popcorn.R;
+import com.vn.popcorn.beans.MovieItem;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -40,16 +37,16 @@ public class DetailActivity extends AppCompatActivity {
         // enable navigation bar tint
         tintManager.setNavigationBarTintEnabled(true);
         // set the transparent color of the status bar, 20% darker
-        tintManager.setTintColor(Color.parseColor("#20000000"));
+        tintManager.setTintColor(Color.parseColor(getString(R.string.tintcolor)));
 
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(MovieItem.EXTRA_MOVIE)) {
             MovieItem movie = new MovieItem(intent.getBundleExtra(MovieItem.EXTRA_MOVIE));
-            ((TextView)findViewById(R.id.movie_title)).setText(movie.getmTitle());
-            ((TextView)findViewById(R.id.movie_average_rating)).setText(movie.getRating());
-            ((TextView)findViewById(R.id.movie_plot)).setText(movie.getmOverview());
-            ((TextView)findViewById(R.id.movie_release_date)).setText(movie.getmReleaseDate());
+            ((TextView) findViewById(R.id.movie_title)).setText(movie.getmTitle());
+            ((TextView) findViewById(R.id.movie_average_rating)).setText(movie.getRating());
+            ((TextView) findViewById(R.id.movie_plot)).setText(movie.getmOverview());
+            ((TextView) findViewById(R.id.movie_release_date)).setText(movie.getmReleaseDate());
 
 
             Uri posterUri = movie.buildPosterUri(getString(R.string.api_poster_default_size));
@@ -57,7 +54,7 @@ public class DetailActivity extends AppCompatActivity {
                     .load(posterUri)
                     .fit()
                     .placeholder(R.drawable.placeholder)
-                    .into((ImageView)findViewById(R.id.imageView));
+                    .into((ImageView) findViewById(R.id.imageView));
         }
 
     }
@@ -70,8 +67,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         return result;
     }
-
-
 
 
 }

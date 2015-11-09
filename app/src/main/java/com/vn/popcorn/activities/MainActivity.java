@@ -17,9 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.vn.popcorn.R;
 import com.vn.popcorn.adapters.GridAdapter;
 import com.vn.popcorn.beans.MovieItem;
-import com.vn.popcorn.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,18 +41,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
-    private  ArrayList result = new ArrayList<>();
+    private ArrayList result = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        this this = getApplicationthis();
-//        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-//        Picasso.with(this).load("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg").resize(185, 277).into(imageView);
-
 
         // Retrieve the AppCompact Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,10 +67,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         // enable navigation bar tint
         tintManager.setNavigationBarTintEnabled(true);
         // set the transparent color of the status bar, 20% darker
-        tintManager.setTintColor(Color.parseColor("#20000000"));
+        tintManager.setTintColor(Color.parseColor(getString(R.string.tintcolor)));
 
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
         // The number of Columns
@@ -93,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onResume() {
         super.onResume();
 
-        }
-
+    }
 
 
     public void updatemovies() {
@@ -112,12 +107,50 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         updatemovies();
     }
 
+    private void setRAdapter() {
+
+        mAdapter = new GridAdapter(this, result);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public class FetchMovieTask extends AsyncTask<String, Void, Collection<MovieItem>> {
 
         private final String LOG_TAG = FetchMovieTask.class.getSimpleName();
         private ProgressDialog pDialog;
-
-
 
 
         @Override
@@ -125,18 +158,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             super.onPreExecute();
             // Showing progress dialog
             pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Please wait...");
+            pDialog.setMessage(getString(R.string.progress_dialog_text));
             pDialog.setCancelable(false);
             pDialog.show();
 
         }
 
 
-
         /**
          * Take the String representing the complete movie data in JSON Format and
          * pull out the data we need to construct the Strings needed for the wireframes.
-         * <p/>
+         * <p>
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
          */
@@ -156,10 +188,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Log.v(LOG_TAG, "movieJson " + movieJson);
             JSONArray movieArray = movieJson.getJSONArray(TMDB_RESULT);
 
-          //  ArrayList result = new ArrayList<>();
+            //  ArrayList result = new ArrayList<>();
 
             String[] resultStrs = new String[numMovies];
-
 
 
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -169,18 +200,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
             for (int i = 0; i < movieArray.length(); i++) {
                 String poster;
-                // Get the JSON object representing the day
-//                JSONObject movie = movieArray.getJSONObject(i);
-//                poster = movie.getString(TMDB_POSTER);
-//                resultStrs[i] = "http://image.tmdb.org/t/p/w185/"+poster;
 
                 result.add(MovieItem.fromJson(movieArray.getJSONObject(i)));
                 Log.v(LOG_TAG, "Movie Poster Paths: " + result);
             }
 
-//            for (String s : resultStrs) {
-//                Log.v(LOG_TAG, "Movie Poster Paths: " + s);
-//            }
             return result;
 
         }
@@ -295,61 +319,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 pDialog.dismiss();
 
             if (result != null) {
-                // mForecastAdapter.clear();
-                for (MovieItem movieStr : result) {
-                    // GridAdapter.add(movieStr);
-//                    if(movieStr!=null) {
-//                        MovieItem movie = new MovieItem();
-//                        movie.setmImgUrl(movieStr);
-//                        mItems.add(movie);
-//                    }
-
-                }
                 //new data is back from server woo hoo :P
             }
             setRAdapter();
         }
-    }
-
-    private void setRAdapter() {
-
-        mAdapter = new GridAdapter(this, result);
-        mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this,SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

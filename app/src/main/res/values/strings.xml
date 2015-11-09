@@ -71,6 +71,8 @@
     <string name="placeholder_movie_rating">Rating: 8.7/10</string>
     <string name="placeholder_movie_poster">movie poster</string>
     <string name="api_poster_default_size">w185</string>
+    <string name="tintcolor">#20000000</string>
+    <string name="progress_dialog_text">Please wait...</string>
     <string-array name="pref_sort_order_titles">
         <item>Trending</item>
         <item>Recent</item>
