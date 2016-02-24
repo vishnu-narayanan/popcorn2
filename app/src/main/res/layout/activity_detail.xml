@@ -25,7 +25,7 @@
             android:layout_weight="1.0"
             android:contentDescription="@string/placeholder_movie_poster"
             android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/interstellar" />
+            android:src="@drawable/placeholder" />
 
 
         <LinearLayout
