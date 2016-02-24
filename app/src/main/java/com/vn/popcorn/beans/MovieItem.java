@@ -28,10 +28,6 @@ public class MovieItem implements Parcelable{
     public static final String TMDB_VOTES = "vote_average";
     public static final String TMDB_RELEASEDATE = "release_date";
 
-    public MovieItem() {
-
-    }
-
 
     public MovieItem(String id,
                  String title, String overview, String poster_path,

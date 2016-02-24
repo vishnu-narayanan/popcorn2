@@ -26,55 +26,12 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     private static final String LOG_TAG = GridAdapter.class.getSimpleName();
     public List<MovieItem> mItems;
     private Context context;
-   // public  String imageUrl[];
-
-//    public GridAdapter(Context context){
-//        this.context = context;
-//    }
 
     public GridAdapter(Context context, List<MovieItem> mItems) {
         super();
         this.context = context;
         this.mItems = mItems;
         Log.v(LOG_TAG, "GridAdapter: " + mItems);
-//
-//        mItems = new ArrayList<MovieItem>();
-//        updatemovies();
-
-//        MovieItem movie = new MovieItem();
-//        movie.setmImgUrl("http://image.tmdb.org/t/p/w185//t4PLWexbe4wbNydCOBv18cYexup.jpg");
-//        mItems.add(movie);
-
-//        movie.setThumbnail(R.drawable.martain);
-//        mItems.add(movie);
-//
-//        movie = new MovieItem();
-//        movie.setThumbnail(R.drawable.hungergames);
-//        mItems.add(movie);
-//
-//        movie = new MovieItem();
-//        movie.setThumbnail(R.drawable.kingsman);
-//        mItems.add(movie);
-//
-//        movie = new MovieItem();
-//        movie.setThumbnail(R.drawable.interstellar);
-//        mItems.add(movie);
-//
-//        movie = new MovieItem();
-//        movie.setThumbnail(R.drawable.avengers);
-//        mItems.add(movie);
-//
-//        movie = new MovieItem();
-//        movie.setThumbnail(R.drawable.terminator);
-//        mItems.add(movie);
-//
-//        movie = new MovieItem();
-//        movie.setThumbnail(R.drawable.jurassicworld);
-//        mItems.add(movie);
-//
-//        movie = new MovieItem();
-//        movie.setThumbnail(R.drawable.mission);
-//        mItems.add(movie);
     }
 
     @Override
@@ -82,7 +39,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.grid_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
-        //updatemovies();
         return viewHolder;
     }
 
@@ -90,13 +46,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         final MovieItem film = mItems.get(i);
 
-       // Uri urí = Uri.parse(film.imageUrl);
-       // Context context = viewHolder.imgThumbnail.getContext();
-//       Picasso.with(context)
-//               .load(film.getmImgUrl())
-//               .placeholder(R.drawable.placeholder)
-//               .fit()
-//               .into(viewHolder.imgThumbnail);
 
         Uri posterUri = film.buildPosterUri(context.getString(R.string.api_poster_default_size));
         Picasso.with(context)
@@ -106,7 +55,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                 .into(viewHolder.imgThumbnail);
 
 
-       // viewHolder.imgThumbnail.setImageResource(film.getThumbnail());
         viewHolder.imgThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
