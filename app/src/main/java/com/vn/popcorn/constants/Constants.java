@@ -11,7 +11,7 @@ public class Constants {
     public static final String TMDB_VOTES = "vote_average";
     public static final String TMDB_RELEASEDATE = "release_date";
 
-    public static final int LANDSCAPE_GRID_ITEMS = 3;
+    public static final int LANDSCAPE_GRID_ITEMS = 4;
     public static final int PORTRAIT_GRID_ITEMS = 2;
 
 }
