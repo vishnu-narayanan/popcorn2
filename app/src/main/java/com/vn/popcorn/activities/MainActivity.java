@@ -20,6 +20,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.vn.popcorn.R;
 import com.vn.popcorn.adapters.GridAdapter;
 import com.vn.popcorn.beans.MovieItem;
+import com.vn.popcorn.constants.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,8 +74,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
+        int orientation = getResources().getConfiguration().orientation;
+
         // The number of Columns
-        mLayoutManager = new GridLayoutManager(this, 2);
+        if(orientation == 1) {
+            mLayoutManager = new GridLayoutManager(this, Constants.POTRAIT_GRID_ITEMS);
+        }
+        else if(orientation == 2) {
+            mLayoutManager = new GridLayoutManager(this, Constants.LANDSCAPE_GRID_ITEMS);
+        }
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         updatemovies();
