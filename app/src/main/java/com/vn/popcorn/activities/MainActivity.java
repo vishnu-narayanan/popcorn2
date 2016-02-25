@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         // The number of Columns
         if(orientation == 1) {
-            mLayoutManager = new GridLayoutManager(this, Constants.POTRAIT_GRID_ITEMS);
+            mLayoutManager = new GridLayoutManager(this, Constants.PORTRAIT_GRID_ITEMS);
         }
         else if(orientation == 2) {
             mLayoutManager = new GridLayoutManager(this, Constants.LANDSCAPE_GRID_ITEMS);
@@ -141,12 +141,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -174,13 +170,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
 
 
-        /**
-         * Take the String representing the complete movie data in JSON Format and
-         * pull out the data we need to construct the Strings needed for the wireframes.
-         * <p>
-         * Fortunately parsing is easy:  constructor takes the JSON string and converts it
-         * into an Object hierarchy for us.
-         */
         private Collection<MovieItem> getMovieDataFromJson(String movieJsonStr, int numMovies)
                 throws JSONException {
 
@@ -196,8 +185,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             JSONObject movieJson = new JSONObject(movieJsonStr);
             Log.v(LOG_TAG, "movieJson " + movieJson);
             JSONArray movieArray = movieJson.getJSONArray(TMDB_RESULT);
-
-            //  ArrayList result = new ArrayList<>();
 
             String[] resultStrs = new String[numMovies];
 
@@ -228,8 +215,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
             //code for talking to the cloud
 
-            // These two need to be declared outside the try/catch
-            // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
@@ -279,9 +264,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                    // But it does make debugging a *lot* easier if you print out the completed
-                    // buffer for debugging.
                     buffer.append(line + "\n");
                 }
 
@@ -296,8 +278,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attempting
-                // to parse it.
                 return null;
             } finally {
                 if (urlConnection != null) {
