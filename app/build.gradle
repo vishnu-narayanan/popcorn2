@@ -7,7 +7,7 @@ def versionBuild = 1 //bump for dogfood builds, public betas, etc.
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.vn.popcorn"
