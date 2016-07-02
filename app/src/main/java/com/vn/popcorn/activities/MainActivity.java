@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.vn.popcorn.R;
 import com.vn.popcorn.adapters.GridAdapter;
-import com.vn.popcorn.beans.MovieItem;
+import com.vn.popcorn.model.MovieItem;
 import com.vn.popcorn.constants.Constants;
 
 import org.json.JSONArray;

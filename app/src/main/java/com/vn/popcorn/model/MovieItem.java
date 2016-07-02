@@ -1,4 +1,4 @@
-package com.vn.popcorn.beans;
+package com.vn.popcorn.model;
 
 import android.net.Uri;
 import android.os.Bundle;

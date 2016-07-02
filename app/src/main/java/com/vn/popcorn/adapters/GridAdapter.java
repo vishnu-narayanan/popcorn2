@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.vn.popcorn.beans.MovieItem;
+import com.vn.popcorn.model.MovieItem;
 import com.vn.popcorn.R;
 import com.vn.popcorn.activities.DetailActivity;
 
