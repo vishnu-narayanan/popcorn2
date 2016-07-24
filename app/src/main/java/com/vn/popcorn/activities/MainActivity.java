@@ -77,10 +77,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         int orientation = getResources().getConfiguration().orientation;
 
         // The number of Columns
-        if(orientation == 1) {
+        if (orientation == 1) {
             mLayoutManager = new GridLayoutManager(this, Constants.PORTRAIT_GRID_ITEMS);
-        }
-        else if(orientation == 2) {
+        } else if (orientation == 2) {
             mLayoutManager = new GridLayoutManager(this, Constants.LANDSCAPE_GRID_ITEMS);
         }
 

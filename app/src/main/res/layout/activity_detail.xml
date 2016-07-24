@@ -96,12 +96,43 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/blue_grey_500" />
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Trailers"
+                android:textColor="@color/blue_grey_500"
+                android:textSize="16sp" />
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/no_trailers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="No trailers found."
+                android:textColor="@color/grey_500"
+                android:visibility="gone" />
+
+
+            <ImageView
+                android:id="@+id/trailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/placeholder_trailer"
+                android:visibility="gone" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,8 +150,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="2"
-                        android:textSize="16sp"
-                        android:textColor="@color/blue_grey_500" />
+                        android:textColor="@color/blue_grey_500"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -130,11 +161,10 @@
                         android:layout_toLeftOf="@id/number_of_reviews"
                         android:layout_toStartOf="@id/number_of_reviews"
                         android:text="Reviews"
-                        android:textSize="16sp"
-                        android:textColor="@color/blue_grey_500" />
+                        android:textColor="@color/blue_grey_500"
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
-
 
                 <View
                     android:layout_width="match_parent"

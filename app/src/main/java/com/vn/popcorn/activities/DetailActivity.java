@@ -1,5 +1,6 @@
 package com.vn.popcorn.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import com.vn.popcorn.R;
 import com.vn.popcorn.model.MovieItem;
 import com.vn.popcorn.model.Review;
 import com.vn.popcorn.model.ReviewsResponse;
+import com.vn.popcorn.model.Trailer;
+import com.vn.popcorn.model.TrailerResponse;
 import com.vn.popcorn.rest.ApiClient;
 import com.vn.popcorn.rest.ApiInterface;
 
@@ -36,6 +39,8 @@ public class DetailActivity extends AppCompatActivity {
 
     public TextView numberOfReviews;
     public LinearLayout reviewDetailContainer;
+    private ImageView trailerImage;
+    private TextView noTrailerFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,8 @@ public class DetailActivity extends AppCompatActivity {
 
         numberOfReviews = (TextView) findViewById(R.id.number_of_reviews);
         reviewDetailContainer = (LinearLayout) findViewById(R.id.review_detail_container);
+        trailerImage = (ImageView) findViewById(R.id.trailer);
+        noTrailerFound = (TextView) findViewById(R.id.no_trailers);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(MovieItem.EXTRA_MOVIE)) {
@@ -106,6 +113,79 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        Call<TrailerResponse> call1 = apiService.getMovieTrailer(Integer.parseInt(movieId), key);
+        call1.enqueue(new Callback<TrailerResponse>() {
+            @Override
+            public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
+                if (response.body() == null) {
+
+                } else {
+                    List<Trailer> trailers = response.body().getResults();
+                    setTrailer(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TrailerResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+
+    }
+
+    private void setTrailer(TrailerResponse trailers) {
+        if (trailers.getResults().isEmpty()) {
+            noTrailerFound.setVisibility(View.VISIBLE);
+        } else {
+            boolean first = true;
+            for (final Trailer trailer : trailers.getResults()) {
+                if (first) {
+                    Uri trailerUri = buildTrailerUri(trailer.getKey());
+
+                    Picasso.with(getApplicationContext())
+                            .load(trailerUri)
+                            .fit()
+                            .placeholder(R.drawable.placeholder_trailer)
+                            .into(trailerImage);
+
+                    trailerImage.setVisibility(View.VISIBLE);
+                    trailerImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openYoutube(trailer.getKey());
+                        }
+                    });
+                    first = false;
+                }
+            }
+
+        }
+
+    }
+
+    private Uri buildTrailerUri(String key) {
+        final String BASE_URL = "http://img.youtube.com/vi/";
+        String quality = "mqdefault.jpg";
+
+        Uri builtUri = Uri.parse(BASE_URL).buildUpon()
+                .appendPath(key)
+                .appendEncodedPath(quality)
+                .build();
+        Log.d(TAG, builtUri.toString());
+
+        return builtUri;
+
+    }
+
+    private void openYoutube(String id) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+            startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v=" + id));
+            startActivity(intent);
+        }
     }
 
     private void setReviews(ReviewsResponse reviews) {
